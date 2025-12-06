@@ -148,13 +148,69 @@ document.getElementById("spin-button").addEventListener("click", async () => {
     currentBalance += winAmount;
     messageElement.textContent = message;
     updateBalanceDisplay();
-    saveBalance();
+    await saveBalanceToServer();
     spinButton.disabled = false;
 });
 
 // === Инициализация ===
-loadBalance();
 currentBetSpan.textContent = betInput.value;
+
+const SERVER_BASE_URL = 'https://neon-star-casino.onrender.com'; // Ваш домен на Render
+
+// === ЗАГРУЗКА БАЛАНСА С СЕРВЕРА ===
+
+
+// === ЗБЕРЕЖЕННЯ БАЛАНСУ НА СЕРВЕРІ ===
+async function saveBalanceToServer() {
+    if (!currentUser) {
+        // Якщо користувач не авторизований, не зберігаємо
+        return;
+    }
+
+    try {
+        const response = await fetch(`${SERVER_BASE_URL}/balance/${currentUser}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ balance: currentBalance }) // Відправляємо поточний баланс
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            console.error("Помилка збереження балансу:", data.error);
+            // Можна вивести повідомлення про помилку користувачеві
+            // messageElement.textContent = `Помилка збереження!`; 
+        }
+        // Якщо успіх, нічого не робимо, бо currentBalance вже оновлено
+        
+    } catch (error) {
+        console.error("Мережева помилка при збереженні балансу:", error);
+    }
+}
+async function fetchAndDisplayBalance() {
+    // Проверяем, есть ли текущий пользователь
+    if (!currentUser) {
+        // Если пользователя нет, показываем 0 и выходим
+        balanceElement.textContent = '0'; 
+        return;
+    }
+
+    try {
+        const response = await fetch(`${SERVER_BASE_URL}/balance/${currentUser}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            // Если запрос успешен, обновляем глобальную переменную и дисплей
+            currentBalance = data.balance; 
+            updateBalanceDisplay(); // <-- Используем существующую функцию
+        } else {
+            console.error("Ошибка сервера при получении баланса:", data.error);
+            messageElement.textContent = `Ошибка: ${data.error}`;
+        }
+    } catch (error) {
+        console.error("Сетевая ошибка при получении баланса:", error);
+        messageElement.textContent = `Ошибка сети: Не удалось подключиться к серверу.`;
+    }
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     const nicknameDisplay = document.getElementById('nickname-display');
@@ -163,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (currentUser) {
         nicknameDisplay.textContent = `Вы вошли как: ${currentUser}`;
         registerLink.style.display = 'none';
-        await loadBalance();
+        await fetchAndDisplayBalance();
     } else {
         nicknameDisplay.textContent = 'Вы не зарегистрированы. Зарегистрируйтесь:';
         registerLink.style.display = 'inline-block';
