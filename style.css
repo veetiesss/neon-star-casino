@@ -1,0 +1,221 @@
+:root {
+    /* Цветовая палитра */
+    --neon-pink: #ff33cc;
+    --neon-blue: #33ccff;
+    --dark-bg: #1a0033;
+    --mid-bg: #2e005c;
+    --light-bg: #4d0080;
+    --font-color: #ffffff;
+    --bet-color: #ffaa00;
+}
+
+/* Общие стили и фон */
+body {
+    background-color: var(--dark-bg);
+    color: var(--font-color);
+    /* Рекомендуется подключить шрифт Orbitron или другой футуристический */
+    font-family: 'Arial', sans-serif; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle at center, var(--mid-bg) 0%, var(--dark-bg) 70%);
+}
+
+.header {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 0 20px var(--neon-pink);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    font-size: 3em;
+    color: var(--neon-blue);
+    /* Неоновый эффект текста */
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px #00aaff; 
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+.casino-container {
+    background-color: var(--light-bg);
+    border: 5px solid var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink) inset;
+    padding: 30px;
+    margin-top: 50px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+}
+
+/* Баланс */
+.balance-display {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--dark-bg);
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+#balance {
+    color: var(--bet-color);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--bet-color);
+}
+
+/* Слот-машина */
+.slot-machine {
+    position: relative;
+    border: 5px solid var(--neon-pink);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--mid-bg);
+    box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink) inset;
+    margin-bottom: 20px;
+}
+
+.reels {
+    display: flex;
+    justify-content: space-around;
+    height: 120px; /* Высота видимой части барабана */
+}
+
+.reel {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: none;
+    margin-top: 20px;
+    font-size: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reel-strip {
+    display: flex;
+    flex-direction: column;
+    transition: transform 1s cubic-bezier(.32,.64,.45,1);
+}
+.symbol {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Линия выигрыша */
+.win-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--neon-blue); /* Изменим на синий для контраста */
+    box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Управление */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#bet-input {
+    width: 80px;
+    padding: 10px;
+    font-size: 1em;
+    text-align: center;
+    border: 2px solid var(--neon-blue);
+    background-color: var(--dark-bg);
+    color: var(--bet-color);
+    border-radius: 5px;
+}
+
+.spin-button {
+    background-color: var(--neon-pink);
+    color: var(--dark-bg);
+    border: 2px solid var(--neon-pink);
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.spin-button:hover {
+    background-color: var(--font-color);
+    color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+.spin-button:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Сообщения */
+.message {
+    min-height: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.win-message {
+    color: var(--bet-color);
+    text-shadow: 0 0 10px var(--bet-color), 0 0 20px var(--bet-color);
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+.link-button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-button {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--dark-bg);
+    background-color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--neon-pink);
+    transition: all 0.2s ease-in-out;
+}
+
+.link-button:hover {
+    background-color: var(--font-color);
+    color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}

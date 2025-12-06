@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрация - Neon Star Casino</title>
+<style>
+  body { background: #1a0033; color: #fff; font-family: 'Arial', sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; }
+  #form-container { text-align:center; background:#2e005c; padding:30px; border-radius:15px; border:3px solid #ff33cc; box-shadow:0 0 20px #ff33cc; }
+  input { padding:10px; font-size:1em; border-radius:5px; border:none; margin-bottom:10px; width:200px; }
+  button { padding:10px 20px; font-size:1em; border:none; border-radius:5px; background:#ff33cc; color:#1a0033; cursor:pointer; }
+  button:hover { background:#ffaa00; }
+  #message { margin-top:10px; color:#ffaa00; }
+</style>
+</head>
+<body>
+
+<div id="form-container">
+  <h2>Введите никнейм</h2>
+  <input type="text" id="nickname" placeholder="Ваш никнейм">
+  <br>
+  <button id="register-btn">Зарегистрироваться</button>
+  <div id="message"></div>
+  <button id="back-btn" style="display:none;">Вернуться в казино</button>
+</div>
+
+<script>
+const registerBtn = document.getElementById('register-btn');
+const backBtn = document.getElementById('back-btn');
+const nicknameInput = document.getElementById('nickname');
+const messageDiv = document.getElementById('message');
+
+const registeredNickname = localStorage.getItem('nickname');
+
+function showRegisteredMessage() {
+  nicknameInput.style.display = 'none';
+  registerBtn.style.display = 'none';
+  messageDiv.textContent = `Вы уже зарегистрированы как "${registeredNickname}"`;
+  backBtn.style.display = 'inline-block';
+}
+
+// Если пользователь уже зарегистрирован
+if (registeredNickname) {
+  showRegisteredMessage();
+}
+
+registerBtn.addEventListener('click', async () => {
+  const nickname = nicknameInput.value.trim();
+  if (!nickname) {
+    messageDiv.textContent = 'Введите никнейм';
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:3000/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nickname })  // <- важная строка
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      messageDiv.textContent = data.error;
+      return;
+    }
+
+    // Сохраняем в localStorage
+    localStorage.setItem('nickname', data.nickname);
+
+    // Переходим на казино
+    window.location.href = 'index.html';
+  } catch (err) {
+    console.error(err);
+    messageDiv.textContent = 'Ошибка при регистрации';
+  }
+});
+
+backBtn.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+</script>
+
+
+</body>
+</html>

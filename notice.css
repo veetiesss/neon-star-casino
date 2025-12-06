@@ -1,0 +1,57 @@
+:root {
+    --neon-pink: #ff33cc;
+    --neon-blue: #33ccff;
+    --dark-bg: #1a0033;
+    --font-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: radial-gradient(circle at center, var(--dark-bg) 0%, #1a0022 80%);
+    color: var(--font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.notice-container h1 {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+.notice-container p {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+}
+
+.notice-link {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--dark-bg);
+    background-color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--neon-pink);
+    transition: all 0.2s ease-in-out;
+}
+
+.notice-link:hover {
+    background-color: var(--font-color);
+    color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+.notice-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

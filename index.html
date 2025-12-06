@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡️ Neon Star Casino - Слот</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <h1>✨ NEON STAR CASINO ✨</h1>
+        <div id="nickname-display"></div>
+        <a href="registration.html" class="button" id="register-link">Перейти к регистрации</a>
+    </header>
+
+
+    <main class="casino-container">
+        <div class="balance-display">
+            Ваш Баланс: <span id="balance">0</span> 💰
+        </div>
+
+        <div class="slot-machine">
+            <div id="reels" class="reels">
+                <div class="reel" id="reel-1"></div>
+                <div class="reel" id="reel-2"></div>
+                <div class="reel" id="reel-3"></div>
+            </div>
+            <div class="win-line"></div>
+        </div>
+
+        <div class="controls">
+            <input type="number" id="bet-input" value="10" min="1" max="100" aria-label="Размер ставки">
+            <button id="spin-button" class="spin-button">КРУТИТЬ! (Ставка: <span id="current-bet">10</span>)</button>
+        </div>
+
+        <div id="message" class="message">Нажмите "КРУТИТЬ!", чтобы начать игру!</div>
+    </main>
+<div class="link-button-container">
+    <a href="#" class="link-button">Пополнить баланс</a>
+</div>
+<div class="link-button-container">
+    <a href="index3.html" class="link-button">Вывести средства</a>
+</div>
+<div class="link-button-container">
+    <a href="index2.html" class="link-button">Ознакомится с правилами пополнения/вывода</a>
+</div>
+    <audio id="spin-sound" src="spin.wav" preload="auto"></audio>
+    <audio id="win-sound" src="win.wav" preload="auto"></audio>
+    <audio id="lose-sound" src="lose.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+    <script>
+const nicknameDisplay = document.getElementById('nickname-display');
+const registerLink = document.getElementById('register-link');
+
+const nickname = localStorage.getItem('nickname');
+
+if (nickname) {
+  nicknameDisplay.textContent = `Вы вошли как: ${nickname}`;
+  registerLink.style.display = 'none';
+} else {
+  nicknameDisplay.textContent = 'Вы не зарегистрированы. Зарегистрируйтесь:';
+  registerLink.style.display = 'inline-block';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+:root {
+    --neon-pink: #ff33cc;
+    --neon-blue: #33ccff;
+    --dark-bg: #1a0033;
+    --mid-bg: #2e005c;
+    --light-bg: #4d0080;
+    --font-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: radial-gradient(circle at center, var(--mid-bg) 0%, var(--dark-bg) 70%);
+    color: var(--font-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.header {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 0 20px var(--neon-pink);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.header h1 {
+    margin: 0;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+}
+
+.rules-container {
+    background-color: var(--light-bg);
+    border: 5px solid var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink) inset;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    text-align: left;
+}
+
+.rules-container h2 {
+    text-align: center;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+    margin-bottom: 20px;
+}
+
+.rules-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.rules-container li {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    line-height: 1.5em;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--dark-bg);
+    background-color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--neon-pink);
+    transition: all 0.2s ease-in-out;
+}
+
+.back-button:hover {
+    background-color: var(--font-color);
+    color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
