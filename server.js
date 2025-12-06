@@ -95,5 +95,22 @@ app.post('/register', async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3000; // Render задаёт свой порт через переменную окружения
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 3000; 
+
+// ======= Подключение к MongoDB и Запуск Сервера =======
+// Переносим подключение и обработку ошибок в Promise
+mongoose.connect('mongodb+srv://admin:admintop@cluster0.drphoeg.mongodb.net/NeonStarDB?retryWrites=true&w=majority')
+  .then(() => {
+    console.log('MongoDB connected successfully. Starting server...');
+    
+    // Запускаем сервер только после успешного подключения к БД
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  })
+  .catch(err => {
+    console.error('FATAL ERROR: MongoDB connection failed:', err);
+    // В случае критической ошибки подключения, приложение не запустится
+    process.exit(1); 
+  });
