@@ -13,7 +13,7 @@ app.use(cors({
 }));
 
 // ======= Подключение к MongoDB =======
-mongoose.connect('mongodb+srv://admin:admintop@cluster0.drphoeg.mongodb.net')
+mongoose.connect('mongodb+srv://admin:admintop@cluster0.drphoeg.mongodb.net/NeonStarDB?retryWrites=true&w=majority')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
