@@ -4,11 +4,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const path = require("path");
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(__dirname)); // оставляем
 
 
 app.use(express.json());
-app.use(cors()); // чтобы фронтенд мог обращаться
+app.use(cors({
+  origin: '*' // разрешить запросы с любых доменов
+}));
 
 // ======= Подключение к MongoDB =======
 mongoose.connect('mongodb+srv://admin:admintop@cluster0.drphoeg.mongodb.net')
