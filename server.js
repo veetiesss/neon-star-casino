@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
+const path = require("path");
+app.use(express.static(path.join(__dirname)));
+
 
 app.use(express.json());
 app.use(cors()); // чтобы фронтенд мог обращаться
@@ -20,6 +23,12 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 // ======= API =======
+app.use(express.static(__dirname)); // отдаём файлы из той же папки
+
+// Главная страница
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+  });
 
 // Проверка/создание пользователя
 app.post('/login', async (req, res) => {
@@ -84,4 +93,5 @@ app.post('/register', async (req, res) => {
 });
 
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+const PORT = process.env.PORT || 3000; // Render задаёт свой порт через переменную окружения
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
