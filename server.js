@@ -6,6 +6,7 @@ const app = express();
 const path = require("path");
 app.use(express.static(__dirname)); // оставляем
 
+mongoose.set('debug', true);
 
 app.use(express.json());
 app.use(cors({
